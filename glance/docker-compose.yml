@@ -1,0 +1,59 @@
+name: glance
+services:
+    glance:
+        cpu_shares: 90
+        command: []
+        container_name: glance
+        deploy:
+            resources:
+                limits:
+                    memory: "8246001664"
+        environment:
+            MY_SECRET_TOKEN: "123456"
+        env_file:
+            - /DATA/AppData/glance/.env
+        hostname: glance
+        image: glanceapp/glance:latest
+        labels:
+            icon: https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/glance.png
+        networks:
+            glance: null
+        ports:
+            - mode: ingress
+              target: 2020
+              published: "2020"
+              protocol: tcp
+        restart: unless-stopped
+        volumes:
+            - type: bind
+              source: /DATA/AppData/glance/config
+              target: /app/config
+              bind:
+                create_host_path: true
+            - type: bind
+              source: /DATA/AppData/glance/assets
+              target: /app/assets
+              bind:
+                create_host_path: true
+            - type: bind
+              source: /etc/localtime
+              target: /etc/localtime
+              read_only: true
+              bind:
+                create_host_path: true
+networks:
+    default:
+        name: glance_default
+    glance:
+        name: glance
+x-casaos:
+    author: self
+    category: self
+    hostname: ""
+    icon: https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/glance.png
+    index: /
+    is_uncontrolled: false
+    port_map: "2020"
+    scheme: http
+    title:
+        custom: Glance

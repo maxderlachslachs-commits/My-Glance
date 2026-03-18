@@ -1,0 +1,163 @@
+- name: Home
+  head-widgets:
+    - type: search
+      search-engine: google
+      bangs:
+        - title: YouTube
+          shortcut: "!yt"
+          url: https://www.youtube.com/results?search_query={QUERY}
+        - title: Amazon
+          shortcut: "!az"
+          url: https://www.amazon.com/s?k={QUERY}
+        - title: Disney+
+          shortcut: "!ds"
+          url: https://www.disneyplus.com/search?q={QUERY}
+        - title: Netflix
+          shortcut: "!nf"
+          url: https://www.netflix.com/search?q={QUERY}
+        - title: YouTube Studio
+          shortcut: "!yts"
+          url: https://studio.youtube.com
+        - title: ZimaOs
+          shortcut: "!os"
+          url: http://100.124.203.85/#/
+        - title: ChatGPT
+          shortcut: "!ch"
+          url: https://chatgpt.com
+        - title: Namemc
+          shortcut: "!nc"
+          url: https://de.namemc.com/search?q={QUERY}
+
+  columns:
+    - size: small
+      widgets:
+        - type: calendar
+          first-day-of-week: monday
+
+        - type: monitor
+          title: Services
+          cache: 1m
+          sites:
+            - title: Lachscloud
+              url: https://data.lachscloud.de/
+              icon: https://i.postimg.cc/Rh1SsVMD/lachs-pf.png
+            - title: Speedtest
+              url: https://speedtest.lachscloud.de/
+              icon: si:speedtest
+            - title: LachsFlix
+              url: https://stream.lachscloud.de/
+              icon: https://i.postimg.cc/Xv9rYhq9/Lachsfelx.png
+            - title: VM (Tailscale)
+              url: http://100.124.203.85/modules/zimaos_zvm
+              icon: http://100.124.203.85/modules/zimaos_zvm/zvm.svg
+    - size: full
+      widgets:
+        - type: twitch-channels
+          collapse-after: 10
+          channels:
+            - chaospav
+            - galaxiekatze08
+            - benutzerlachs
+            - thejocraft_live
+            - irongirl_lp
+            - schrottsoke660
+            - spacemitx
+            - ytdinorp
+
+    - size: full
+      widgets:
+        - type: videos
+          channels:
+            - UCXuqSBlHAE6Xw-yeJA0Tunw
+            - UClHiUoll6rMLPR-Pa8bUBtQ
+            - UC3BDnpDxN9XfEBC5PkrhTMQ
+            - UCBJycsmduvYEL83R_U4JriQ
+            - UCRPAO_aRT5z_xSS7kcFd2Jg
+            - UC9x0AN7BWHpCDHSm9NiJFJQ
+            - UCWFNUk2LHUQdRzQcJLYZmcg
+            - UC5oN8biQKAyeEKi7EWzBWUg
+            - UCD8MvEFuywgosaImzWhCFJA
+            - UCKvBnxTAf6ZNzoOLwBpsxzA
+            - UCt9i_ht4i8Q7vtGTO42PgTg
+            - UCWFKCr40YwOZQx8FHU_ZqqQ
+            - UCZ4kpCuYPcNMktkvJp0ZJcA
+            - UC3s0j7YLUmpcvVY6mzdjGrg
+            - UChjjthmyVYCPPxKgKueX4Fg
+            - UC7rcmRWQidKeyY-xy49sV8w
+
+        - type: weather
+          location: Flensburg, Germany
+          units: metric
+          hour-format: 24h
+
+
+- name: Homelab
+  columns:
+    - size: full
+      widgets:
+        - type: custom-api
+          title: Minecraft
+          url: https://api.mcstatus.io/v2/status/java/horizont2.ggwp.cc
+          cache: 30s
+          template: |
+            {{ if .JSON.Bool "online" }}
+            <div>
+              <strong>{{ .JSON.String "host" }}</strong> 🟢<br>
+              {{ .JSON.String "version.name_clean" }}<br>
+              {{ .JSON.Int "players.online" }}/{{ .JSON.Int "players.max" }} Spieler
+            </div>
+            {{ else }}
+            <div>
+              <strong>{{ .JSON.String "host" }}</strong> 🔴 Offline
+            </div>
+            {{ end }}
+
+    - size: small
+      widgets:
+        - type: monitor
+          title: Services
+          cache: 1m
+          sites:
+            - title: CasaOS
+              url: http://100.89.20.120:90
+
+
+- name: Gaming
+  columns:
+    - size: small
+      widgets:
+        - type: twitch-top-games
+          limit: 20
+          collapse-after: 13
+          exclude:
+            - just-chatting
+            - pools-hot-tubs-and-beaches
+            - music
+            - art
+            - asmr
+
+    - size: full
+      widgets:
+        - type: group
+          widgets:
+            - type: reddit
+              subreddit: pcgaming
+              show-thumbnails: true
+            - type: reddit
+              subreddit: games
+
+        - type: videos
+          style: grid-cards
+          collapse-after-rows: 3
+          channels:
+            - UCNvzD7Z-g64bPXxGzaQaa4g
+            - UCZ7AeeVbyslLM_8-nVy2B8Q
+            - UCHDxYLv8iovIbhrfl16CNyg
+            - UC9PBzalIcEQCsiIkq36PyUA
+
+    - size: small
+      widgets:
+        - type: reddit
+          subreddit: gamingnews
+          limit: 7
+          style: vertical-cards
